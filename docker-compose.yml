@@ -1,0 +1,41 @@
+version: '2'
+# Create networks to be used to isolate containers
+networks:
+  # Server network to hold database and backend
+  servernetwork: {}
+# Create named volumes to mount to containers.
+volumes:
+  # Create a named volume to hold database data
+  database-storage: {}
+# Define services to be run.
+services:
+  database:
+    build: ./database
+    volumes:
+      - database-storage:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: auctiondb
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      # Expose the Mysql port for local development.
+      # This is so we can connect to the database using `localhost` or the ip of the docker host.
+      - "3306:3306"
+    networks:
+      # Add the database service to the servernetwork.
+      - app-network
+  application:
+    build:
+      context: ./application
+      dockerfile: development.Dockerfile
+    volumes:
+      - ./application:/application/code
+    ports:
+      - "1234:1234"
+    networks:
+      - app-network 
+    depends_on:
+      - database
+  #Docker Networks
+networks:
+  app-network:
+    driver: bridge
