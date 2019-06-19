@@ -10,6 +10,7 @@ volumes:
 # Define services to be run.
 services:
   database:
+    container_name: database
     build: ./database
     volumes:
       - database-storage:/var/lib/mysql
@@ -24,6 +25,7 @@ services:
       # Add the database service to the servernetwork.
       - app-network
   application:
+    container_name: application
     build:
       context: ./application
       dockerfile: development.Dockerfile

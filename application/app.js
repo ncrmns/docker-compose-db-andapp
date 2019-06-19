@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
 const conn = mysql.createConnection({
-  host: 'localhost',
+  host: 'database',
   user: 'root',
   password: 'root',
   database: 'auctiondb'

@@ -12,3 +12,6 @@ CREATE TABLE auctions (
 
   INSERT INTO auctions (title,highestBid,expiryDate,highestBidderName) 
   VALUES ('expensive stuff',1234, 1565568000, 'Nathalie');
+
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'*' WITH GRANT OPTION;
+  FLUSH PRIVILEGES;
