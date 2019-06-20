@@ -26,6 +26,8 @@ services:
       - app-network
   application:
     container_name: application
+    links: 
+      - database
     build:
       context: ./application
       dockerfile: development.Dockerfile
