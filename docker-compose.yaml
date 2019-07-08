@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    volumes:
+      - container-volume:/var/lib/mysql
+      - ./app/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: auctiondb
+      MYSQL_USER: ncrmns
+      MYSQL_PASSWORD: root
+    ports: 
+      - 3306:3306
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 100m
+  app:
+    build: ./app
+    ports: 
+      - 1234:1234
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 100m
+    depends_on:
+      - db
+volumes:
+  container-volume:

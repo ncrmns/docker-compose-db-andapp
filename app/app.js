@@ -6,14 +6,12 @@ const mysql = require('mysql');
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
-const conn = mysql.createConnection({
-  host: 'database',
-  user: 'root',
-  password: 'root',
-  database: 'auctiondb'
-});
-
-conn.query('select * from auctions', (err,data)=>{if (err) console.error(err); else console.log(data)});
+const  conn = mysql.createConnection({
+    host: 'db',
+    user: 'ncrmns',
+    password: 'root',
+    database: 'auctiondb'
+  });
 
 
 app.get('/', (req, res) => {
@@ -85,3 +83,5 @@ function updateDbWithBid(id, nameandbid) {
       });
   });
 }
+
+module.exports = {app, conn};

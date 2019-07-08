@@ -1,6 +1,5 @@
 'use strict'
 refreshApi();
-console.log('whatever');
 
 function refreshApi(){
   document.querySelectorAll('li').forEach(li => li.remove());
@@ -20,7 +19,6 @@ function refreshApi(){
       option.id = auction.id;
       document.querySelector('.selector').appendChild(option);
     })
-    .catch(console.error);
   });
 }
 
